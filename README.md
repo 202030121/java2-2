@@ -49,6 +49,57 @@
     container.add(new JButton("div"), BorderLayout.WEST);
     container.add(new JButton("Calculate"), BorderLayout.CENTER);
     ```
+### BorderLayout 생성자
+  * BorderLayout()  
+  * BorderLayout(int hGap, int vGap)  
+    -hGap : 좌우 두 컴포넌트 사이의 수평 간격, 픽셀 단위(디폴트 : 0)  
+    -vGap : 상하 두 컴포넌트 사이의 수직 간격, 픽셀 단위(디폴트 : 0)  
+### BorderLayout add() 메소드
+  * void add(Component comp, int index)  
+    -comp 컴포넌트를 index 위치에 삽입한다  
+    -index : 컴포넌트의 위치  
+    (BorderLayout.CENTER 및 4방위)
+### GridLayout 배치방법
+  * 컨테이너 공간을 동일한 사각형 격자로 분할하고 각 셀에 컴포넌트 하나씩 배치  
+    -생성자에 행수아 열수 지정  
+    -셀에 왼쪽에서 오른쪽으로, 다시 위에서 아래로 순서대로 배치  
+    ```java
+    container.setLayout(new GridLayout(4,3,5,5)); //4×3 분할로 컴포넌트 배치
+    container.add(new JButton("1")); //상단 왼쪽 첫 번째 셀에 버튼 배치
+    container.add(new JButton("2")); //그 옆 셀에 버튼 배치
+    ```
+### GridLayout 생성자
+  * GridLayout()  
+  * GridLayout(int rows, int cols)  
+  * GridLayout(int rows, int cols, int hGap, int vGap)  
+    -rows : 격자의  행수  (디폴트  : 1)  
+    -cols : 격자의  열수  (디폴트  : 1)  
+    -hGap : 좌우 두 컴포넌트 사이의 수평 간격, 픽셀 단위(디폴트 : 0)  
+    -vGap : 상하 두 컴포넌트 사이의 수직 간격, 픽셀 단위(디폴트 : 0)  
+    -rows x cols 만큼의 셀을 가진 격자로 컨테이너 공간을 분할, 배치   
+### 컨테이너의 배치 관리자 제거 방법
+  * container.setLayout(null);
+    ```java
+    JPanel p = new JPanel();
+    p.setLayout(null); // JPanel의 배치관리자 삭제
+    ```  
+  * 컨테이너의 배치관리자가 없어지면, 컴포넌트에 대한 어떤 배치도 없음  
+  ```java
+  // 패널  p에는  배치관리자가  없으면  아래  두  버튼은  배치되지  않는다.
+  p.add(new JButton("click")); // 폭과 높이가 0인 상태로 화면에 보이지 않는다. 
+  p.add(new JButton("me!")); // 폭과 높이가 0인 상태로 화면에 보이지 않는다.
+  ```
+### 컴포넌트의 크기와 위치  설정 메소드
+
+```java
+JPanel p = new JPanel();
+p.setLayout(null); // 패널 p의 배치관리자 제거 
+
+JButton clickButton = new JButton("Click");
+clickButton.setSize(100, 40); // 버튼 크기를 100×40으로 지정 
+clickButton.setLocation(50, 50); // 버튼 위치를 (50, 50)으로 지정 
+p.add(clickButton); // 패널 내 (50, 50)에 100×40 크기의 버튼 출력
+```
 
 ## 5월 3일 GUI
 1. GUI 응용프로그램
