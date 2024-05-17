@@ -17,9 +17,9 @@
     -컴포넌트는 삽입 순서대로 좌에서 우로, 다시 위에서 아래로 배치  
   * CardLayout 배치관리자  
     -컨테이너의 공간에 카드를 쌓아 놓은 듯이 컴포넌트를 포개어 배치
-        ![](/4Layout.png)    
+![](/4Layout.png)    
 ### 컨테이너의 디폴트 배치 관리자
-  ![](/LayoutDefult.png)
+![](/LayoutDefult.png)
 ### setLayout 메소드 호출  
   * lm을 새로운 배치관리자로 설정
 ### FlowLayout 배치관리자
@@ -40,7 +40,7 @@
 쪽 정렬(FlowLayout.RIGHT), 중앙 정렬(FlowLayout.CENTER(디폴트))  
     -hGap : 좌우 두 컴포넌트 사이의 수평 간격, 픽셀 단위. 디폴트는 5  
     -vGap : 상하 두 컴포넌트 사이의 수직 간격, 픽셀 단위. 디폴트는 5  
-    ![](/FlowLayout1.png)  
+![](/FlowLayout1.png)  
 ### BorderLayout 배치관리자
   * 컨테이너 공간을 5구역으로 분할, 배치  
     -동, 서, 남, 북, 중앙  
@@ -51,7 +51,7 @@
     container.add(new JButton("div"), BorderLayout.WEST);
     container.add(new JButton("Calculate"), BorderLayout.CENTER);
     ```  
-    ![](./BorderLayout1.PNG)  
+![](./BorderLayout1.PNG)  
 
 ## 5월 3일 GUI
 1. GUI 응용프로그램
