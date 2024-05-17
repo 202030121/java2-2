@@ -1,5 +1,41 @@
 # 이승엽 202030121
 
+## 5월 17일
+### 컨테이너의 배치관리자
+  * 컨테이너마다 하나의 배치관리자 존재  
+  * 컨테이너에 부착되는 컴포넌트의 위치와 크기 결정  
+  * 컨테이너의 크기가 변경되면, 컴포넌트의 위치와 크기 재결정  
+### 배치 관리자 대표 유형 4가지  
+  * FlowLayout 배치관리자  
+    -컴포넌트가 삽입되는 순서대로 왼쪽에서 오른쪽으로 배치  
+    -배치할 공간이 없으면 아래로 내려와서 반복한다.  
+  * BorderLayout 배치관리자  
+    -컨테이너의 공간을 동 서 남 북 중앙 5개의 영역으로 나눔  
+    -5개 영역 중 응용프로그램에서 지정한 영역에 컴포넌트 배치  
+  * GridLayout 배치관리자  
+    -컨테이너를 프로그램에서 설정한 동일한 크기의 2차원 격자로 나눔  
+    -컴포넌트는 삽입 순서대로 좌에서 우로, 다시 위에서 아래로 배치  
+  * CardLayout 배치관리자  
+    -컨테이너의 공간에 카드를 쌓아 놓은 듯이 컴포넌트를 포개어 배치  
+### setLayout 메소드 호출  
+  * lm을 새로운 배치관리자로 설정
+### FlowLayout 배치관리자
+  * 배치방법 : 컴포넌트를 컨테이너 내에 왼쪽에서 오른쪽으로 배치  
+    -다시 위에서 아래로 순서대로 배치  
+      ```container.setLayout(new FlowLayout());  
+      container.add(new JButton("add"));  
+      container.add(new JButton("sub"));  
+      container.add(new JButton("mul"));  
+      container.add(new JButton("div"));
+      container.add(new JButton("Calculate"));```
+### FlowLayout의 생성자
+  * FlowLayout()  
+  * FlowLayout(int align, int hGap, int vGap)  
+    -align : 컴포넌트를 정렬하는 방법 지정. 왼쪽 정렬(FlowLayout.LEFT), 오른
+쪽 정렬(FlowLayout.RIGHT), 중앙 정렬(FlowLayout.CENTER(디폴트))  
+    -hGap : 좌우 두 컴포넌트 사이의 수평 간격, 픽셀 단위. 디폴트는 5  
+    -vGap : 상하 두 컴포넌트 사이의 수직 간격, 픽셀 단위. 디폴트는 5  
+
 ## 5월 3일 GUI
 1. GUI 응용프로그램
   * GUI  
@@ -654,5 +690,5 @@ public class Main {
 ## 링크
 [구글 링크](https://www.google.co.kr/)  
 [리스트](#markdown-문법)  
-![상대경로](./1.jpg)
+![상대경로](/1.jpg)
 ![절대경로](https://newsimg-hams.hankookilbo.com/2022/05/19/624e4207-9ee4-46db-ab65-76cc882eb4c2.jpg)
