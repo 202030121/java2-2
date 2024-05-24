@@ -8,9 +8,8 @@ public class NullContainerEx extends JFrame {
         Container contentPane = getContentPane();
         contentPane.setLayout(null); // 컨텐츠팬의 배치관리자 제거
 
-        JLabel la = new JLabel("Hello");
-        la.setLocation(130, 150);
-        la.setSize(200, 20);
+        JLabel la = new JLabel("Hello, Press Buttons!");
+        la.setBounds(130, 50, 200, 20);
         contentPane.add(la);
 
         for(int i=1; i<10; i++) {

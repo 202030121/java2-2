@@ -1,5 +1,213 @@
 # 이승엽 202030121
 
+## 5월 24일
+### 이벤트 기반 프로그래밍
+  * 이벤트의 발생에 의해 프로그램 흐름이 결정되는 방식  
+    -이벤트가 발생하면 이벤트를 처리하는 루틴(이벤트 리스너) 실행  
+    -실행될 코드는 이벤트의 발생에 의해 전적으로 결정  
+  * 반대되는 개념 : 배치 실행  
+    -프로그램의 개발자가 프로그램의 흐름을 결정하는 방식  
+  * 이벤트 종류  
+    -사용자의 입력 : 마우스, 키보드 등  
+    -센서로부터의 입력, 네트워크로부터 데이터 송수신  
+    -다른 응용프로그램이나 다른 스레드로부터의 메시지  
+### 이벤트 기반 응용 프로그램의 구조  
+  * 각 이벤트마다 처리하는 리스너 코드 보유  
+### GUI 응용프로그램은 이벤트 기반 프로그래밍으로 작성됨  
+  * GUI 라이브러리 종류  
+    -C++ 의 MFC, C# GUI, Android 등  
+    -자바의 AWT, Swing  
+### 이벤트 객체  
+  * 발생한 이벤트에 관한 정보를 가진 객체  
+  * 이벤트 리스너에 전달됨  
+    -이벤트 리스너 코드가 발생한 이벤트에 대한 상황을 파악할 수 있게 함  
+### 이벤트 객체가 포함하는 정보  
+  * 이벤트 종류와 이벤트 소스  
+  * 이벤트가 발생한 버튼이나 메뉴 아이템의 문자열  
+  * 이벤트가 발생한 화면 좌표 및 컴포넌트 내 좌표  
+  * 클릭된 마우스 버튼 번호 및 마우스의 클릭 횟수  
+  * 키의 코드 값과 문자 값  
+  * 체크박스, 라디오버튼 등과 같은 컴포넌트에 이벤트가 발생하였다면 체크 상태  
+### 이벤트 소스를 알아내는 메소드  
+  * Object getSource()  
+    -발생한 이벤트의 소스 컴포넌트 리턴  
+    -Object 타입으로 리턴하므로 캐스팅하여 사용  
+    -모든 이벤트 객체에 대해 적용  
+### 이벤트 객체, 이벤트 정보 리턴 메소드 및 이벤트 소스  
+![](/event1.jpg)
+![](/event2.jpg)
+### 이벤트 리스너  
+  * 이벤트를 처리하는 자바 프로그램 코드, 클래스로 작성  
+### 자바는 다양한 리스너 인터페이스 제공  
+  * ex) ActionListener 인터페이스 - 버튼 클릭 이벤트를 처리하기 위한 인터페이스  
+  ```java
+  interface ActionListener { // 아래  메소드를  개발자가  구현해야  함
+  public void actionPerformed(ActionEvent e); // Action 이벤트  발생시  호출됨 
+}
+  ```  
+  * ex) MouseListener  인터페이스  –  마우스  조작에  따른  이벤트를  처리하기  위한  인터페이스  
+  ```java
+  interface MouseListener { // 아래의  5개  메소드를  개발자가  구현해야  함
+   public void mousePressed(MouseEvent e); // 마우스  버튼이  눌러지는  순간  호출
+    public void mouseReleased(MouseEvent e); // 눌러진  마우스  버튼이  떼어지는  순간  호출
+    public void mouseClicked(MouseEvent e); // 마우스가  클릭되는  순간  호출
+    public void mouseEntered(MouseEvent e); // 마우스가  컴포넌트  위에  올라가는  순간  호출
+    public void mouseExited(MouseEvent e); // 마우스가  컴포넌트  위에서  내려오는  순간  호출 
+}
+  ```  
+### 자바에서 제공하는 이벤트 리스너 인터페이스  
+![](/event3.jpg)  
+### 이벤트와 이벤트 리스너 선택  
+  * 버튼 클릭을 처리하고자 하는 경우  
+    -이벤트 : Action 이벤트, 이벤트 리스너 : ActionListener  
+### 이벤트 리스너 클래스 작성 : ActionListener 인터페이스 구현  
+```java
+class MyActionListener implements ActionListener {
+  public void actionPerformed(ActionEvent e) {   // 버튼이  클릭될  때  호출되는  메소드 
+    JButton b = (JButton)e.getSource();          // 사용자가  클릭한  버튼  알아내기 
+    if(b.getText().equals("Action"))             // 버튼의  문자열이  "Action"인지  비교
+      b.setText("액션");                         // JButton의   setText() 호출. 문자열변경
+    else
+      b.setText("Action");                      // JButton의   setText() 호출. 문자열변경
+  }
+}      
+```  
+### 이벤트 리스너 등록  
+  * 이벤트를 받아 처리하고자 하는 컴포넌트에 이벤트 리스너 등록  
+  * component.add***Listener(listener)  
+    -*** : 이벤트 명   
+    -listener : 이벤트 리스너 객체  
+  ```java
+  MyActionListener listener = new MyActionListener(); // 리스너  인스턴스  생성
+  btn.addActionListener(listener);  // 리스너 등록 
+  ```  
+### 이벤트 리스너 작성 방법 3가지  
+  * 독립 클래스로 작성  
+    -이벤트 리스너를 완전한 클래스로 작성  
+    -이벤트 리스너를 여러 곳에서 사용할 때 적합  
+  * 내부 클래스(inner class)로 작성  
+    -클래스 안에 멤버처럼 클래스 작성  
+    -이벤트 리스너를 특정 클래스에서만 사용할 때 적합  
+  * 익명 클래스(anonymous calss)로 작성  
+    -클래스의 이름 없이 간단히 리스너 작성  
+    -클래스 조차 만들 필요 없이 리스너 코드가 간단한 경우에 적합  
+### 익명 클래스(anonymous calss) : 이름 없는 클래스  
+  * (클래스 선언 + 인스턴스 생성)을 한번에 달성  
+  ```java
+  new 익명클래스의 슈퍼클래스 이름(생성자인자들) {
+    익명클래스의 멤버 구현  
+  }
+  ```  
+  * 간단한 리스너의 경우 익명 클래스 사용 추천  
+### ActionListener를 구현하는 익명의 이벤트를 리스너 작성 예 
+![](/event4.JPG)  
+### 어댑터 클래스(Adapter)  
+  * 리스너의 모든 메소드를 단순 리턴하도록 만든 클래스(JDK에서 제공)  
+  * MouseAdapter 예  
+    ```java
+    class MouseAdapter implements MouseListener, MouseMotionListener,
+      MouseWheelListener {
+    public void mousePressed(MouseEvent e) {} //MouseListener 메소드
+    public void mouseReleased(MouseEvent e) {} //MouseListener 메소드
+    public void mouseClicked(MouseEvent e) {} //MouseListener 메소드
+    public void mouseEntered(MouseEvent e) {} //MouseListener 메소드
+    public void mouseExited(MouseEvent e) {} //MouseListener 메소드
+    public void mouseDragged(MouseEvent e) {} //MouseMotionListener 메소드
+    public void mouseMoved(MouseEvent e) {} //MouseMotionListener 메소드
+    public void mouseWheelMoved(MouseWheelEvent e) {} //MouseWheelListener 메소드
+  }```  
+  * 추상 메소드가 하나뿐인 리스너는 어댑터 없음  
+### 키 입력시, 다음 세 경우 각각 Key 이벤트 발생  
+  * 키를 누르는 순간  
+  * 누른 키를 떼는 순간  
+  * 누른 키를 떼는 순간(Unicode 키의 경우에만)  
+### 키 이벤트를 받을 수 있는 조건  
+  * 모든 컴포넌트  
+  * 현재 포커스를 가진 컴포넌트가 키 이벤트 독점  
+### 포커스  
+  * 컴포넌트나 응용프로그램이 키 이벤트를 독점하는 권한  
+  * 컴포넌트에 포커스 설정 방법  
+  ```java
+  component.setFocusable(true); // component가  포커스를  받을  수  있도록  설정 
+  component.requestFocus(); // componen에  포커스  강제  지정
+  ```  
+    -자바 플랫폼마다 실행 환경의 초기화가 서로 다를 수 있기 때문에 다음 코드가 필요 : component.setFocusable(true)
+### KeyListener  
+  * 응용프로그램에서 KeyListener를 상속받아 키 리스너 구현  
+  * 3개 메소드  
+  ```java
+   void keyPressed(KeyEvent e) { 
+    // 이벤트  처리  루틴
+  }
+    void keyReleased(KeyEvent e) { 
+    // 이벤트  처리  루틴
+  }
+    void keyTyped(KeyEvent e) { 
+    // 이벤트  처리  루틴
+  }
+  ```  
+  * 컴포넌트에 키 이벤트 리스너 달기  
+  ```java
+  component.addKeyListener(myKeyListener);
+  ```  
+### 유니코드 키  
+  * 유니코드 키가 입력되는 경우  
+    -keyPressed(), keyTyped(), keyReleased() 가 순서대로 호출  
+  * 유니코드 키가 아닌 경우  
+    -keyPressed(), keyReleased() 만 호출됨  
+### KeyEvent 객체  
+  * 입력된 키 정보를 가진 이벤트 객체  
+  * KeyEvent 객체의 메소드로 입력된 키 판별  
+    -char KeyEvent.getKeyChar(), int KeyEvent.getKeyCode()  
+    ```java
+    public void keyPressed(KeyEvent e) { 
+      if(e.getKeyChar() == 'q')
+      System.exit(0); 
+      // q키를 누르면 프로그램 종료
+    }
+    public void keyPressed(KeyEvent e) {
+      if(e.getKeyCode() == KeyEvent.VK_F5) 
+      System.exit(0); 
+      // F5키를 누르면 프로그램 종료
+    }```  
+### 가상 키
+  * 가상 키는 KeyEvent 클래스에 상수로 선언  
+  * 가상 키의 일부 소개  
+![](/event5.JPG)  
+### Mouse 이벤트 : 사용자의 마우스 조작에 따라 발생하는 이벤트  
+![](/event6.JPG)  
+  * mouseClicked() : 마우스가 눌러진 위치에서 그대로 떼어질 때 호출  
+  * mouseReleased() : 마우스가 눌러진 위치에서 그대로 떼어지든 아니든 항상 호출  
+  * mouseDragged() : 마우스가 드래그되는 동안 계속 여러번 호출  
+### 마우스가 눌러진 위치에서 떼어지는 경우 메소드 호출 순서  
+  * mousePressed(), mouseReleased(), mouseClicked()  
+### 마우스가 드래그될 때 호출되는 메소드 호출 순서  
+  * mousePressed(), mouseDragged(), mouseDragged(),..., mouseDragged(), mouseReleased()  
+### 마우스 리스너 달기  
+  * 마우스 리스너는 컴포넌트에 다음과 같이 등록  
+    `component.addMouseListener(myMouseListener);`  
+  * 컴포넌트가 마우스 무브(mouseMoved())나 마우스 드래깅(mouseDreaggecd())을 함께 처리하고자 하면, MouseMotion 리스너 따로 등록  
+    `component.addMouseMotionListener(myMouseMotionListener);`  
+### MouseEvent 객체 활용  
+  * 마우스 포인터의 위치, 컴포넌트 내 상대 위치  
+    -int getX(), int getY()
+    ```java
+    public void mousePressed(MouseEvent e) { 
+      int x = e.getX(); // 마우스가  눌러진  x 좌표 
+      int y = e.getY(); // 마우스가  눌러진  y 좌표
+  }
+    ```  
+  * 마우스 클릭 횟수  
+    -int getClickCount()  
+    ```java
+    public void mouseClicked(MouseEvent e) { 
+      if(e.getClickCount() == 2) {
+       // 더블클릭  처리  루틴 
+    }
+  }
+    ```  
+
+
 ## 5월 17일
 ### 컨테이너의 배치관리자
   * 컨테이너마다 하나의 배치관리자 존재  
