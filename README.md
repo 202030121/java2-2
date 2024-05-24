@@ -34,8 +34,10 @@
     -Object 타입으로 리턴하므로 캐스팅하여 사용  
     -모든 이벤트 객체에 대해 적용  
 ### 이벤트 객체, 이벤트 정보 리턴 메소드 및 이벤트 소스  
-![](img/event1.jpg)
-![](img/event2.jpg)
+![](img/event1.jpg)  
+
+![](img/event2.jpg)  
+
 ### 이벤트 리스너  
   * 이벤트를 처리하는 자바 프로그램 코드, 클래스로 작성  
 ### 자바는 다양한 리스너 인터페이스 제공  
@@ -101,6 +103,7 @@ class MyActionListener implements ActionListener {
   * 간단한 리스너의 경우 익명 클래스 사용 추천  
 ### ActionListener를 구현하는 익명의 이벤트를 리스너 작성 예 
 ![](img/event4.JPG)  
+
 ### 어댑터 클래스(Adapter)  
   * 리스너의 모든 메소드를 단순 리턴하도록 만든 클래스(JDK에서 제공)  
   * MouseAdapter 예  
@@ -174,8 +177,10 @@ class MyActionListener implements ActionListener {
   * 가상 키는 KeyEvent 클래스에 상수로 선언  
   * 가상 키의 일부 소개  
 ![](img/event5.JPG)  
+
 ### Mouse 이벤트 : 사용자의 마우스 조작에 따라 발생하는 이벤트  
 ![](img/event6.JPG)  
+
   * mouseClicked() : 마우스가 눌러진 위치에서 그대로 떼어질 때 호출  
   * mouseReleased() : 마우스가 눌러진 위치에서 그대로 떼어지든 아니든 항상 호출  
   * mouseDragged() : 마우스가 드래그되는 동안 계속 여러번 호출  
@@ -225,7 +230,8 @@ class MyActionListener implements ActionListener {
     -컴포넌트는 삽입 순서대로 좌에서 우로, 다시 위에서 아래로 배치  
   * CardLayout 배치관리자  
     -컨테이너의 공간에 카드를 쌓아 놓은 듯이 컴포넌트를 포개어 배치
-![](img/4Layout.jpg)
+![](img/4Layout.jpg)  
+
 ### setLayout 메소드 호출  
   * lm을 새로운 배치관리자로 설정
 ### FlowLayout 배치관리자
@@ -246,7 +252,8 @@ class MyActionListener implements ActionListener {
 쪽 정렬(FlowLayout.RIGHT), 중앙 정렬(FlowLayout.CENTER(디폴트))  
     -hGap : 좌우 두 컴포넌트 사이의 수평 간격, 픽셀 단위. 디폴트는 5  
     -vGap : 상하 두 컴포넌트 사이의 수직 간격, 픽셀 단위. 디폴트는 5  
-![](img/FlowLayout1.jpg)
+![](img/FlowLayout1.jpg)  
+
 ### BorderLayout 배치관리자
   * 컨테이너 공간을 5구역으로 분할, 배치  
     -동, 서, 남, 북, 중앙  
