@@ -1,5 +1,201 @@
 # 이승엽 202030121
 
+## 5월 31일
+### 자바의 GUI 프로그래밍 방법  
+  * 컴포넌트 기반 GUI 프로그래밍  
+    -스윙 컴포넌트를 이용하여 쉽게 GUI 구축  
+  * 그래픽 기반 GUI 프로그래밍  
+    -그래픽을 이용하여 GUI 구축  
+    -GUI 처리의 실행속도가 빨라, 게임 등에 주로 이용  
+### JComponent  
+  * 스윙 컴포넌트는 모두 상속받는 슈퍼 클래스, 추상 클래스  
+  * 스윙 컴포넌트들이 상속받는 공통 메소드와 상수 구현  
+![](./img/Jcomponent1.JPG)  
+### JLabel 문자열 및 이미지 출력  
+  * JLabel의 용도  
+    -문자열이나 화면에 출력하기 위한 목적  
+  * 레이블 생성  
+    -JLabel(Icon image) : 이미지 레이블  
+    -JLabel(String text) : 문자열 레이블  
+    -JLabel(String text, Icon image, int hAlign) : 문자열과 이미지 모두 가진 레이블  
+    (hAlign : 수평 정렬 값)  
+### 레이블 생성 예  
+  * 문자욜 레이블 생성  
+  ```java
+  JLabel textLabel = new JLabel("안녕하세요");
+  ```  
+  * 이미지 레이블 생성  
+    -이미지 파일로부터 이미지를 읽기 위해 Imagelcon 클래스 사용  
+    -다룰 수 있는 이미지 : png, gif, jpg  
+    ```java
+    ImageIcon image = new ImageIcon("images/sunset.jpg"); 
+    JLabel imageLabel = new JLabel(image);
+    ```    
+  * 수평 정렬 값을 가진 레이블 컴포넌트 생성  
+    ```java
+    ImageIcon image = new ImageIcon("images/sunset.jpg");
+    JLabel label = new JLabel("사랑합니다", image, SwingConstants.CENTER);```  
+### JButton으로 버튼 만들기  
+  * 버튼 생성  
+    -JButton() : 빈 버튼  
+    -JButton(Icon image) : 이미지 버튼   
+    -JButton(String text) : 문자열 버튼  
+    -JButton(String text, Icon image) : 문자열과 이미지 모두 가진 버튼  
+### 3 개의 버튼 이미지  
+  * normallcon  
+    -버튼의 보통 상태(디폴트) 때 출력되는 이미지  
+    -생성자에 이미지 아이콘 전달 혹은 JButton의 setIcon(normalIcon);  
+  * rollovericon  
+    -버튼에 마우스가 올라갈 때 출력되는 이미지  
+    -이미지 설정 메소드 : JButton의 setRolloverIcon(rolloverIcon);  
+  * pressedicon  
+    -버튼을 누른 상태 때 출력되는 이미지  
+    -이미지 설정 메소드 : JButton의 setPressedIcon(pressedIcon);  
+### 이미지 로딩  
+  * 필요한 이미지 로딩 : new Imageicon(이미지 경로명);  
+  ```java
+  ImageIcon normalIcon = new ImageIcon("images/normalIcon.gif");
+  ImageIcon rolloverIcon = new ImageIcon("images/rolloverIcon.gif");
+  ImageIcon pressedIcon = new ImageIcon("images/pressedIcon.gif")
+  ```  
+  * 버튼에 이미지 등록  
+    * JButton의 메소드를 호출하여 이미지 등록  
+    ```java 
+    JButton button = new JButton("테스트버튼", normalIcon); // normalIcon 달기 
+    button.setRolloverIcon(rolloverIcon); // rolloverIcon 달기 
+    button.setPressedIcon(pressedIcon);  // pressedIcon 달기
+    ```  
+  * 실행 중에 normal 이미지 교체  
+  ```java 
+  ImageIcon newIcon = new ImageIcon("images/newIcon.gif");
+  button.setIcon(newIcon); // 디폴트 이미지 변경
+  ```  
+### JCheckBox의 용도  
+  * 선택과 비선택 두 상태만 가지는 버튼  
+  * 체크박스 생성  
+    -JCheckBox() : 빈 체크박스  
+    -JCheckBox(Icon image) : 이미지 체크박스  
+    -JCheckBox(Icon image, boolean selected) : 이미지 체크박스  
+    -JCheckBox(String text, Icon image) : 문자열과 이미지를 가진 체크박스  
+    -JCheckBox(String text, Icon image, boolean selected) : 문자열과 이미지 체크박스  
+  * 문자열을 가진 체크박스 생성 예  
+  ```java
+  JCheckBox apple = new JCheckBox("사과"); // "사과" 체크박스 생성 
+  JCheckBox pear = new JCheckBox("배", true); // 선택 상태의 "배" 체크박스 생성
+  ```  
+### Item 이벤트  
+  * 체크박스의 선택 상태에 변화가 생길 때 발생하는 이벤트  
+  ```java  
+  JCheckBox c = new JCheckBox("사과"); 
+  c.setSelected(true); // 선택 상태로 변경
+  ```  
+  * 이벤트가 발생하면 ItemEvent 객체 생성  
+  * ItemListener 리스너를 이용하여 이벤트 처리  
+### JRadioButton의 용도  
+  * 버튼 그룹을 형성하고, 그룹에 속한 버튼 중 하나만 선택되는 라디오 버튼  
+  * 체크박스와의 차이점  
+    -체크 박스는 각각 선택/해제가 가능하지만, 라디오버튼은 그룹에 속한 버튼 중 하나만 선택  
+  * 라디오버튼 생성
+    -JRadioButton() : 빈 라디오 버튼  
+    -나머지는 체크박스와 동일  
+### 버튼 그룹과 라디오버튼 생성 과정  
+![](./img/Button1.JPG)  
+  * 라디오버튼에 Item 이벤트 처리 : ItemListener 리스너 이용  
+    -라디오버튼이 선택/해제되어 상태가 달라지면 Item 이벤트 발생  
+### JTextField  
+  * 한 줄의 문자열을 입력 받는 창(텍스트필드)  
+    -텍스트 입력 도중 엔터키가 입력되면 Action 이벤트 발생  
+  * 텍스트필드 생성 예  
+    ```java
+    JTextField tf2 = new JTextField("컴퓨터공학과");
+    ```  
+### JTextArea  
+  * 여러 줄의 문자열을 입력받을 수 있는 창(텍스트영역)  
+    -스크롤바를 지원하지 않는다  
+    -JScrollPane 객체 삽입하여 스크롤바 지원  
+### 텍스트영역  
+![](./img/Text1.JPG)  
+### JList<E>  
+  * 하나 이상의 아이템을 보여주고 아이템을 선택하도록 하는 리스트  
+  * JScrollPane에 JList<E>를 삽입하여 스크롤 가능  
+  * 리스트 생성  
+    -JList<E>() : 빈리스트  
+    -JList<E>(Vector listData) : 벡터로부터 아이템을 공급받는 리스트  
+    -JList<E>(Object [] listData) : 배열로부터 아이템을 공급받는 리스트  
+### 리스트 예시  
+  ```java
+  String [] fruits= {"apple", "banana", "kiwi", "mango", "pear", 
+  "peach", "berry", "strawberry", "blackberry"};
+  JList<String> strList = new JList<String>(fruits);
+  ```  
+### JComboBox<E>  
+  * 텍스트필드와 버튼, 그리고 드롭다운 리스트로 구성되는 콤보박스  
+  * 드롭다운 리스트에서 선택한 것이 텍스트필드에 나타남  
+### 텍스트를 아이템으로 가진 콤보박스 예시  
+  ```java
+  String [] fruits = {"apple", "banana", "kiwi", "mango", "pear", "peach", 
+  "berry", "strawberry", "blackberry" };
+  JComboBox<String> combo = new JComboBox<String>(fruits);
+  ```  
+### 메뉴 만들기에 필요한 스윙 컴포넌트  
+  * 메뉴아이템 - JMenuItem  
+  * 메뉴 - JMenu  
+    -여러 개의 메뉴 아이템을 가짐  
+  * 베뉴바 - JMenuBar  
+    -여러 개의 메뉴를 붙이는 바이며, 프레임에 부착됨  
+  * 분리선  
+    -메뉴아이템 사이의 분리선  
+    -JMenu의 addSeparator()를 호출하여 삽입  
+### 메뉴 만드는 과정  
+![](./img/menu1.JPG)  
+### 메뉴아이템에 Action 이벤트  
+  * 메뉴아이템은 사용자로부터의 지시나 명령을 받는데 사용  
+  * ActionListener 인터페이스로 리스너 작성  
+  * 각 메뉴 아이템마다 이벤트 리스너 설정  
+### 메뉴아이템 Action 리스너 예시  
+  ```java
+  JMenuItem item = new JMenuItem("Load");
+  item.addActionListener(new MenuActionListener()); // 메뉴아이템에 Action 리스너 설정 
+  screenMenu.add(item);
+
+  class MenuActionListener implements ActionListener { 
+    public void actionPerformed(ActionEvent e) {
+    // 사용자가 Load 메뉴아이템을 선택하는 경우 처리할 작업 구현
+    }
+  }
+  ```  
+### 팝업 다이얼로그(JOptionPane)  
+  * 사용자에게 메시지를 전달하거나 문자열을 간단히 입력받는 용도  
+  * JOptionPane 클래스를 이용하여 생성  
+    -static 타입의 간단한 메소드 이용  
+### 입력 다이얼로그(JOptionPane.showInputDialog())  
+  * 한 줄을 입력 받는 다이얼로그  
+  ```java
+  String name = JOptionPane.showInputDialog("이름을 입력하세요."); 
+  // name에 "Java Kim"이 리턴
+  // 취소 버튼이나, 입력 없이 다이얼로그가 닫히면 null 리턴
+  ```  
+### 확인 다이얼로그(JOptionPane.showConfirmDialog())  
+  * 사용자로부터 Yes/No 응답을 입력 받는 다이얼로그  
+  ```java
+  int result = JOptionPane.showConfirmDialog(null, "계속할 것입니까?",
+  "Confirm", JOptionPane.YES_NO_OPTION);
+  if(result == JOptionPane.CLOSED_OPTION) {
+  // 사용자가 "예", "아니오"의 선택 없이 다이얼로그 창을 닫은 경우 
+  }
+  else if(result == JOptionPane.YES_OPTION) { 
+  // 사용자가 "예"를 선택한 경우
+  } 
+  else {
+  // 사용자가 "아니오"를 선택한 경우 
+  } 
+  ```  
+### 메시지 다이얼로그(showMessageDialog)  
+  * 단순 메시지를 출력하는 다이얼로그  
+  ```java
+  JOptionPane.showMessageDialog(null, "조심하세요", "Message", JOptionPane.ERROR_MESSAGE);
+  ```
+
 ## 5월 24일
 ### 이벤트 기반 프로그래밍
   * 이벤트의 발생에 의해 프로그램 흐름이 결정되는 방식  
