@@ -1,5 +1,150 @@
 # 이승엽 202030121
 
+## 6월 7일
+### 스윙의 페인팅 기본  
+  * 모든 컴포넌트는 자신의 모양을 스스로 그린다  
+  * 컨테이너는 자신을 그린 후 그 위에 자식 컴포넌트들에게 그리기 지시  
+  * 모든 스윙 컴포넌트는 자신의 모양을 그리는 paintComponent() 메소드 보유  
+### public void paintComponent(Graphics g)  
+  * JComponent의 메소드  
+    -모든 스윙 컴포넌트가 이 메소드를 오버라이딩 함  
+  * 컴포넌트가 그려져야 하는 시점마다 호출  
+  * 매개변수인 Graphics 객체  
+    -그래픽 컨텍스트 : 컴포넌트 그리기에 필요한 도구를 제공하는 객체  
+### paintComponent(Graphic g)의  오버라이딩  
+  * 개발자가 JComponent를 상속받아 새로운 컴포넌트 설계  
+  * 기존 컴포넌트의 모양에 변화를 주고자 할 때  
+  ```java
+  class MComponent extends JXXX {
+      public void paintComponent(Graphics g) { 
+          super.paintComponent(g); 
+      }
+  }
+  ```  
+### JPanel  
+  * 비어 있는 컨테이너  
+  * JPanl을 상속받아 개발자 임의의 모양을 가지는 패널로 많이 사용  
+### 그래픽 기반 GUI 프로그래밍  
+  * 스윙 컴포넌트에 의존하지 않고 선, 원 이미지 등을 이용하여 직접 화면을 구성하는 방법  
+### 자바의 그래픽 좌표 시스템  
+![](./img/Graphics1.jpg)  
+### Graphics의 기능  
+  * 색상 선택, 문자열 그리기, 도형 그리기, 도형 칠하기, 이미지 그리기, 클리핑  
+### 스윙에서 이미지를 그리는 2가지 방법  
+  * JLabel을 이용한 이미지 그리기  
+  * Graphics의 drawimage()로 이미지 출력  
+### repaint()  
+  * 모든 컴포넌트가 가지고 있는 메소드  
+  * 자바 플랫폼에게 컴포넌트 그리기를 강제 지시하는 메소드  
+  * repaint()를 호출하면, 자바 플랫폼이 컴포넌트의 paintComponent() 호출  
+    -`component.repaint()`  
+### 부모 컴포넌트부터 다시 그리기  
+  * 컴포넌트 repaint()가 불려지면  
+    -이 컴포넌트는 새로운 위치에 다시 그려지지만 이전의 위치에 있던 자신의 모양이 남아있음  
+  * 부모 컴포넌트의 repaint()를 호출하면  
+    -부모 컨테이너의 모든 내용을 지우고 자식을 다시 그리기 때문에 컴포넌트의 이전 모양이 지워지고 새로 변경된 크기나 위치에 그려짐  
+    `component.getParent().repaint();`  
+### 스레드(thread)  
+  * 운영체제에 의해 관리되는 하나의 작업 혹은 태스크  
+  * 스레드와 태스크(혹은 작업)은 바꾸어 사용해도 무관  
+### 멀티스레딩(multi-threading)  
+  * 여러 스레드를 동시에 실행시키는 응용프로그램을 작성하는 기법  
+### 스레드 구성  
+  * 스레드 코드  
+    -작업을 실행하기 위해 작성한 프로그램 코드  
+    -개발자가 작성  
+  * 스레드 정보  
+    -스레드 명, 스레드 ID, 스레드의 실행 소요 시간, 스레드의 우선 순위 등  
+    -운영체제가 스레드에 대해 관리하는 정보  
+### 멀티프로세싱  
+  * 하나의 응용프로그램이 여러 개의 프로세스를 생성하고, 각 프로세스가 하나의 작업을 처리하는 기법  
+  * 각 프로세스 독립된 메모리 영역을 보유하고 실행  
+  * 프로세스 사이의 문맥 교환에 따른 과도한 오버헤드와 시간 소모의 문제점  
+![](./img/Thread1.jpg)  
+### 자바 스레드  
+  * 자바 가상 기계(JVM)에 의해 스케쥴되는 실행 단위의 코드 블럭  
+  * 스레드의 생명 주기는 JVM에 의해 관리됨(JVM은 스레드 단위로 스케쥴링)  
+### JVM과 자바의 멀티스레딩  
+  * 하나의 JVM은 하나의 자바 응용프로그램만 실행  
+  * 응용프로그램은 하나 이상의 스레드로 구성 가능  
+### 스레드 만드는 방법  
+  * java.lang.Thread 클래스를 상속받아 스레드 작성  
+  * java.lang.Runnable 인터페이스를 구현하여 스레드 작성  
+![](./img/Thread2.jpg)  
+### Thread를 상속받아 run() 오버라이딩  
+  ```java
+  class TimerThread extends Thread {
+    .............................
+  @Override
+  public void run() { // run() 오버라이딩
+      ......................... 
+    }
+  }
+  ```  
+  * 스레드 객체 생성  
+    -생성된 객체는 필드와 메소드를 가진 객체일 뿐 스레드로 작동하지 않음  
+      `TimerThread th = new TimerThread();`  
+### 스레드 시작  
+  `th.start();`  
+![](./img/Thread3.jpg)  
+### Runnable 인터페이스 구현하는 새 클래스 작성  
+  ```java
+  class TimerRunnable implements Runnable {
+    ..............................
+    @Override
+    public void run() { // run() 메소드 구현
+      .............
+    }
+  }
+  ```  
+  * 스레드 객체 생성  
+    `Thread th = new Thread(new TimerRunnable());`  
+### main 스레드  
+  * JVM이 응용프로그램을 실행할 때 디폴트로 생성되는 스레드  
+### 스레드 동기화  
+  * 스레드 사이의 실행순서 제어, 공유데이터에 대한 접근을 원활하게 하는 기법  
+  * 멀티스레드의 공유 데이터의 동시 접근 문제 해결  
+    -공유 데이터를 접근하는 모든 스레드의 한 줄 세우기  
+    -한 스레드가 공유 데이터에 대한 작업을 끝낼 때까지 다른 스레드가 대기 하도록 함  
+### 자바 스레드 동기화 방법  
+  * synchronized 키워드로 동기화 블록 지정  
+  * wait()-notify() 메소드로 스레드의 실행 순서 제어  
+### synchornized 키워드  
+  * 스레드가 독점적으로 실행해야 하는 부분(동기화 코드)을 표시하는 키워드  
+    -임계 영역 표기 키워드  
+  * synchronized 블록 지정 방법  
+    -메소드 전체 혹은 코드 블록  
+### synchronized 블록이 실행될 때  
+  * 먼저 실행한 스레드가 모니터 소유  
+  * 모니터를 소유한 스레드가 모니터를 내놓을 때까지 다른 스레드 대기  
+  * 메소드 :  
+  ```java
+  synchronized void print(String text) { // 동기화 메소드
+      ...
+      for(int i=0; i<text.length(); i++) // text의 각 문자 출력 
+          System.out.print(text.charAt(i));
+      ... 
+  }
+  ```  
+  * 코드 블록 :  
+  ```java
+  void execute(String text) {
+    ...
+    synchronized(this) { // 동기화 코드 블록
+      ...
+      for(int i=0; i<text.length(); i++) 
+        System.out.print(text.charAt(i));
+        ... 
+      }
+  }
+  ```  
+### wait()-notify가 필요한 경우  
+  * 공유 데이터로 두 개 이상의 스레드가 데이터를 주고 받을 때  
+  * 동기화 메소드  
+    -wait() : 다른 스레드가 notify()를 불러줄 때까지 기다린다  
+    -notify() : wait()를 호출하여 대기중인 스레드를 깨운다.  
+![](./img/Thread4.jpg)
+
 ## 5월 31일
 ### 자바의 GUI 프로그래밍 방법  
   * 컴포넌트 기반 GUI 프로그래밍  
