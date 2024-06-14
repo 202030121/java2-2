@@ -15,9 +15,9 @@
     `InputStreamReader rd = new InputStreamReader(System.in);`  
     ```java
     while(true) {
-      int c = rd.read(); // 입력  스트림으로부터  키  입력. c는  입력된   키  문자  값 
-      if(c == -1) // 입력  스트림의  끝을  만나는  경우
-      break; // 입력  종료 
+      int c = rd.read(); // 입력 스트림으로부터 키 입력. c는 입력된 키 문자 값 
+      if(c == -1) // 입력 스트림의 끝을 만나는 경우
+      break; // 입력 종료 
     }
     ```  
 ### 텍스트 파일을 읽기 위해 문자 스트림 FileReader 클래스 이용  
@@ -26,8 +26,8 @@
   * 파일 읽기  
   ```java
   int c;
-  while((c = fin.read()) != -1) { // 문자를  c에  읽음. 파일  끝까지  반복 
-  System.out.print((char)c); // 문자  c 화면에  출력
+  while((c = fin.read()) != -1) { // 문자를 c에 읽음. 파일 끝까지 반복 
+  System.out.print((char)c); // 문자 c화면에 출력
   }
   ```  
   * 스트림 닫기  
@@ -46,9 +46,9 @@
     ...
     fin.close();
     } catch(FileNotFoundException e) { 
-    System.out.println("파일을   열  수  없음");
+    System.out.println("파일을 열 수 없음");
     } catch(IOException e) {
-    System.out.println("입출력   오류"); 
+    System.out.println("입출력 오류"); 
     }
   ```  
 ### FileWriter 클래스 이용  
@@ -56,12 +56,136 @@
   `FileWriter fout = new FileWriter("c:\\Temp\\test.txt");`  
   * 파일 쓰기  
   ```java
-  fout.write('A'); // 문자  'A'를  파일에  기록
+  fout.write('A'); // 문자 'A'를 파일에 기록
   char [] buf = new char [1024];
   fout.write(buf, 0, buf.length); // buf[0]부터 버퍼 크기만큼 쓰기
-  ```    
-  
+  ```  
+### Filewrite의 생성자와 주요 메소드  
+![](./img/stream1.jpg)
+### 바이트 값을 파일에 저장하기  
+  * 프로그램 내의 변수, 배열, 버퍼에 든 바이너리 값을 파일에 그대로 기록  
+  * 파일 출력 스트림 생성  
+  `FileOutputStream fout = new FileOutputStream("c:\\Temp\\test.out");`  
+  * 파일 쓰기  
+  ```java
+  byte b[] = {7,51,3,4,-1,24};
+  for(int i=0; i<b.length; i++) fout.write(b[i]); // 배열 b를 바이너리 그대로 기록
+  ```  
+![](./img/stream2.jpg)  
+  * 스트림 닫기  
+    -close()로 닫기  
+### FileOutputStream의 생성자와 주요 메소드  
+![](./img/stream3.jpg)  
+### File 클래스  
+  * 파일의 경로명 및 속성을 다루는 클래스  
+    -java.io.File  
+    -파일과 디렉터리 경로명의 추상적 표현  
+  * 파일 이름 변경, 삭제, 디렉터리 생성, 크기 등 파일 관리  
+  * File 객체에는 파일 읽기/쓰기 기능 없음  
+    -파일 입출력은 파일 입출력 스트림 이용  
+### File 객체 생성  
+  * 생성자에 파일 경로명을 주어 File 객체 생성  
+  `File f = new File("c:\\Temp\\test.txt");`  
+  * 디렉터리와 파일명을 나누어 생성자 호출  
+  `File f = new File("c:\\Temp", "test.txt");`  
+### File 클래스 생성자와 주요 메소드  
+![](./img/stream4.jpg)  
+### Fie 클래스 활용  
+  * 파일 크기  
+  `long size = f.length();`  
+  * 파일 경로명  
+  ```java
+  File f = new File("c:\\windows\\system.ini");
+  String filename = f.getName();      // "system.ini"
+  String path = f.getPath(); // "c:\\windows\\system.ini"
+  String parent = f.getParent();        // "c:\\windows"
+  ```  
+  * 파일 타입  
+  ```java
+  if(f.isFile())
+  System.out.println(f.getPath() + "는  파일입니다."); // 파일 
+  else if(f.isDirectory())
+  System.out.println(f.getPath() + "는  디렉터리입니다."); // 디렉터리
+  ```  
+  * 디렉터리 파일 리스트 얻기  
+  ```java
+  File f = new File("c:\\Temp");
+  File[] subfiles = f.listFiles(); // c:\Temp의 파일 및 서브 디렉터리 리스트  얻기 
+  for(int i=0; i<filenames.length; i++) {
+  System.out.print(subfiles[i].getName()); // 서브 파일명 출력
+  System.out.println("\t파일   크기: " + subfiles[i].length()); //서브파일크기출력 
+  }
+  ```  
 
+### TCP/IP 프로토콜  
+  * 두 시스템 간에 데이터가 손상없이 안전하게 전송되도록 하는 통신 프로토콜  
+  * TCP에서 동작하는 응용프로그램 사례  
+    -E-mail, FTP, 웹 등  
+### TCP/IP 특징  
+  * 연결형 통신  
+    -한 번 연결 후 계속 데이터 전송 가능  
+  * 보낸 순서대로 받아 응용프로그램에게 전달  
+![](./img/tcp1.jpg)  
+### IP 주소  
+  * 네트워크 상에서 유일하게 식별될 수 있는 컴퓨터 주소  
+  * 문자열로 구성된 도메인 이름으로 바꿔 사용  
+### 포트  
+  * 통신하는 프로그램 간에 가상의 연결단 포트 생성  
+    -IP 주소는 네트워크 상의 컴퓨터 또는 시스템을 식별하는 주소  
+    -포트 번호를 이용하여 통신할 응용프로그램 식별  
+  * 모든 응용 프로그램은 하나 이상의 포트 생성 가능  
+    -포트를 이용하여 상대방 응용프로그램과 데이터 교환  
+![](./img/tcp2.jpg)  
+### 소켓  
+  * TCP/IP 네트워크를 이용하여 쉽게 통신 프로그램을 작성하도록 지원하는 기반 기술  
+  * 소켓  
+    -두 응용프로그램 간의 양방향 통신 링크의 한쪽 끝 단  
+    -소켓은 특정 IP 포트 번호와 결합  
+  * 자바로 소켓 통신할 수 있는 라이브러리 지원  
+  * 소켓은 서버 소켓과 클라이언트 소켓이 있음  
+![](./img/tcp3.jpg)  
+### Socket 클래스  
+  * 클라이언트 소켓에 사용되는 클래스  
+  * java.net 패키지에 포함  
+![](./img/tcp4.jpg)  
+### 클라이언트에서 소켓으로 서버에 접속하는 코드  
+  * 클라이언트 및 소켓 생성 및 서버에 접속  
+`Socket clientSocket = new Socket("128.12.1.1", 9999);`  
+  * 소켓으로부터 데이터를 전송할 입출력 스트림 생성  
+  ```java
+  BufferedReader in = new BufferedReader(
+  new InputStreamReader(clientSocket.getInputStream()));
+  BufferedWriter out = new BufferedWriter(
+  new OutputStreamWriter(clientSocket.getOutputStream()));
+  ```  
+  * 서버로 데이터 전송  
+  ```java
+  out.write("hello"+"\n"); 
+  out.flush();
+  ```  
+  * 서버로부터 데이터 수신  
+  `String line = in.readline();`  
+  * 네트워크 접속 종료  
+  `clientSocket.close();`  
+### 서버가 클라이언트와 통신하는 과정  
+  * 서버 소켓 생성  
+  `ServerSocket serverSocket = new ServerSocket(9999);`  
+  * 클라이언트로부터 접속 기다림  
+  `Socket socket = serverSocket.accept();`  
+    -accept() 메소드는 접속 요청이 오면 접속 후 새 Socket 객체 반환  
+    -접속 후 새로 만들어지는 Socket 객체를 통해 클라이언트와 통신  
+  * 네트워크 입출력 스트림 생성  
+  ```java
+  BufferedReader in = new BufferedReader(
+  new InputStreamReader(socket.getInputStream()));
+  BufferedWriter out = new BufferedWriter(
+  new OutputStreamWriter(socket.getOutputStream()));
+  ```  
+### 서버-클라이언트 채팅 플로그램 만들기  
+  * 서버와 클라이언트와 1:1로 채팅  
+  * 클라이언트와 서버가 서로 한번씩 번갈아 가면서 문자열 전송  
+  * 클라이언트가 bye를 보내면 프로그램 종료  
+![](./img/tcp5.jpg)  
 
 ## 6월 7일
 ### 스윙의 페인팅 기본  
