@@ -1,5 +1,68 @@
 # 이승엽 202030121
 
+## 6월 14일
+### 자바의 입출력 스트림  
+  * 입력 스트림 : 입력 장치로부터 자바 프로그램으로 데이터를 전달하는 객체  
+  * 출력 스트림 : 자바 프로그램에서 출력 장치로 데이터를 보내는 객체  
+### 문자 스트림  
+  * 문자만 입출력하는 스트림  
+  * 문자가 아닌 바이너리 데이터는 스트림에서 처리 못함  
+### 바이트 스트림  
+  * 입출력 데이터를 단순 바이트의 흐름으로 처리  
+  * 문자 데이터, 바이너리 데이터 상관없이 처리 가능  
+### 스트림 연결  
+  * 여러 개의 스트림을 연결하여 사용 가능  
+    `InputStreamReader rd = new InputStreamReader(System.in);`  
+    ```java
+    while(true) {
+      int c = rd.read(); // 입력  스트림으로부터  키  입력. c는  입력된   키  문자  값 
+      if(c == -1) // 입력  스트림의  끝을  만나는  경우
+      break; // 입력  종료 
+    }
+    ```  
+### 텍스트 파일을 읽기 위해 문자 스트림 FileReader 클래스 이용  
+  * 파일 입력 스트림 생성(파일 열기)  
+  `FileReader fin = new FileReader("c:\\test.txt");`  
+  * 파일 읽기  
+  ```java
+  int c;
+  while((c = fin.read()) != -1) { // 문자를  c에  읽음. 파일  끝까지  반복 
+  System.out.print((char)c); // 문자  c 화면에  출력
+  }
+  ```  
+  * 스트림 닫기  
+  `fin.close();`  
+### 파일 입출력 동안 예외 발생 가능  
+  * 스트림 생성 동안 FileNotFoundException 발생 가능  
+  `FileReader fin = new FileReader("c:\\test.txt"); // FileNotFoundException 발생가능`  
+  * 파일 읽기, 쓰기, 닫기를 하는 동안 IOException 발생 가능  
+  `int c = fin.read(); // IOException 발생  가능`  
+  * try-catch 블록 반드시 필요  
+  ```java
+  try {
+    FileReader fin = new FileReader("c:\\test.txt");
+    ..
+    int c = fin.read();
+    ...
+    fin.close();
+    } catch(FileNotFoundException e) { 
+    System.out.println("파일을   열  수  없음");
+    } catch(IOException e) {
+    System.out.println("입출력   오류"); 
+    }
+  ```  
+### FileWriter 클래스 이용  
+  * 파일 출력 스트림 생성  
+  `FileWriter fout = new FileWriter("c:\\Temp\\test.txt");`  
+  * 파일 쓰기  
+  ```java
+  fout.write('A'); // 문자  'A'를  파일에  기록
+  char [] buf = new char [1024];
+  fout.write(buf, 0, buf.length); // buf[0]부터 버퍼 크기만큼 쓰기
+  ```    
+  
+
+
 ## 6월 7일
 ### 스윙의 페인팅 기본  
   * 모든 컴포넌트는 자신의 모양을 스스로 그린다  
